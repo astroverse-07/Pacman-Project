@@ -7,9 +7,7 @@ public class Pacman {
     }
 
     public void move(char direction, GameBoard board) {
-        int newX = x;
-        int newY = y;
-
+        int newX = x, newY = y;
         if (direction == 'w') newX--;
         if (direction == 's') newX++;
         if (direction == 'a') newY--;
