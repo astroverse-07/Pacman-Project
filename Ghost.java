@@ -9,20 +9,33 @@ public class Ghost {
         this.y = y;
     }
 
-    public void move(GameBoard board) {
-        int dir = rand.nextInt(4);
+    // Manhattan distance formula
+    public int distanceTo(int px, int py) {
+        return Math.abs(this.x - px) + Math.abs(this.y - py);
+    }
 
-        int newX = x;
-        int newY = y;
+    public void move(GameBoard board, int pacmanX, int pacmanY) {
+        int[] dx = {1, -1, 0, 0};
+        int[] dy = {0, 0, 1, -1};
 
-        if (dir == 0) newX++;
-        if (dir == 1) newX--;
-        if (dir == 2) newY++;
-        if (dir == 3) newY--;
+        int bestX = x, bestY = y;
+        int bestDist = distanceTo(pacmanX, pacmanY);
 
-        if (board.isValid(newX, newY)) {
-            x = newX;
-            y = newY;
+        for (int i = 0; i < 4; i++) {
+            int newX = x + dx[i];
+            int newY = y + dy[i];
+
+            if (board.isValid(newX, newY)) {
+                int dist = Math.abs(newX - pacmanX) + Math.abs(newY - pacmanY);
+                if (dist < bestDist || (dist == bestDist && rand.nextBoolean())) {
+                    bestDist = dist;
+                    bestX = newX;
+                    bestY = newY;
+                }
+            }
         }
+
+        x = bestX;
+        y = bestY;
     }
 }
