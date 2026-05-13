@@ -9,7 +9,7 @@ public class Ghost {
         this.y = y;
     }
 
-    // Manhattan distance formula
+    // distance formula
     public int distanceTo(int px, int py) {
         return Math.abs(this.x - px) + Math.abs(this.y - py);
     }
